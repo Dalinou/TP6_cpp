@@ -4,7 +4,7 @@ CXX        = clang++
 CXXFLAGS   = -Wall  -std=c++20
 DEPFLAGS   = -MMD
 LDFLAGS    =
-SRCS       = main.cpp
+SRCS       = main.cpp sudoku.cpp
 OBJS       = $(SRCS:.cpp=.o)
 TARGET     = app
 DEPS	   = $(OBJS:.o=.d)
