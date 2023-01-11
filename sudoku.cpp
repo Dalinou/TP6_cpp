@@ -1,5 +1,6 @@
 #include "sudoku.h"
 #include <string>
+#include <iomanip>
 
 Sudoku::Sudoku(std::array<int, 2> dimension)
 	: _dimension(dimension), _size(_dimension.at(0) * _dimension.at(1))
@@ -14,17 +15,18 @@ Sudoku::Sudoku(std::vector<int> grid, std::array<int, 2> dimension)
 }
 std::ostream& operator<<(std::ostream& os, Sudoku& s)
 {
-	for (int i = 0; i < s._size; i++)
+	int width_size = ceil(2 * log10(s._size))+1;
+	for (int raw = 0; raw < s._size; raw++)
 	{
-		for (int j = 0; j < s._size; j++)
+		for (int col = 0; col < s._size; col++)
 		{
-			if (j % s._dimension.at(0) == 0) os << "|	";
-			int value = s._board.at(i * s._size + j);
-			if (value == 0)os << "_	";
-			else os << value << "	";
+			if (col % s._dimension.at(0) == 0) os << "|" << std::setw(width_size);
+			int value = s._board.at(raw * s._size + col);
+			if (value == 0)os << "_" << std::setw(width_size);
+			else os << value << std::setw(width_size);
 		}
-		os << "|	\n";
-		if ((i + 1) % s._dimension.at(1) == 0) os << "	\n";
+		os << "|\n";
+		if ((raw + 1) % s._dimension.at(1) == 0) os << "\n";
 	}
 	return os;
 }
@@ -40,6 +42,17 @@ bool Sudoku::generate(bool empty)
 }
 bool Sudoku::isValid()
 {
-	// TODO
+	if (_board.size() != pow(_size, 2))
+		return false;
+	
+	return true;
+}
+bool Sudoku::solve(bool check_unicity)
+{
+	bool solution_found = false;
+	while (check_unicity || !solution_found)
+	{
+		//TODO
+	}
 	return true;
 }

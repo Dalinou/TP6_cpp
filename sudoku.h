@@ -11,6 +11,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, Sudoku& s);
 	bool generate(bool empty=true);
 	bool isValid();
+	bool solve(bool check_unicity = true);
 private:
 	std::vector<int> _board;
 	std::vector<int> _solution;
