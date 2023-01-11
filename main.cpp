@@ -3,10 +3,6 @@
 #include <iomanip>
 
 int main() {
-	Sudoku s1 = Sudoku({3,3});
-	std::cout << s1;
-	Sudoku s2 = Sudoku([](int d1, int d2) {std::vector<int> tmp; for (int _ = 0; _ < pow(d1*d2,2); _++)tmp.push_back(_%10); return tmp; }(5,5), {5,5});
-	std::cout << s2;
 	std::vector<int> test_grid = {
 		0,8,0,0,0,0,0,2,0,
 		3,0,0,8,1,9,0,0,7,
@@ -19,6 +15,8 @@ int main() {
 		4,0,0,0,0,0,0,0,2 };
 	Sudoku s3 = Sudoku(test_grid, { 3,3 });
 	std::cout << s3;
+	std::cout << "Solved:\n";
+	s3.getSolved(std::cout);
 	std::vector<bool> valid_values = s3.getRawValues(0);
 	for (int j = 0; j < 9; j++)
 		std::cout << j + 1 << ":" << std::setw(4) << (valid_values.at(j) ? "\033[1;32mT\033[0m  " : "\033[1;31mF\033[0m  ");
