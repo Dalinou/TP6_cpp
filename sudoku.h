@@ -6,17 +6,18 @@
 class Sudoku
 {
 public:
-	Sudoku(std::array<int, 2> dimension = { 3,3 });// Génération auto
+	Sudoku(int difficulty = 3, std::array<int, 2> dimension = { 3,3 });// Génération auto, difficulty from 1 to 10
 	Sudoku(std::vector<int> grid, std::array<int, 2> dimension);// Génération manuelle
 	friend std::ostream& operator<<(std::ostream& os, Sudoku& s);
 	std::ostream& getSolved(std::ostream& os);
-	bool generate(bool empty=true);
+	bool generate(int nb_value = 0, int max_try = 1000);
 	bool isValid();
 	bool solve(bool check_unicity = false);
 	std::vector<bool> getValidValues(int raw, int col);
 	std::vector<bool> getRawValues(int raw);
 	std::vector<bool> getColValues(int col);
 	std::vector<bool> getSquareValues(int raw, int col);
+	bool isRemovable(int raw, int col);
 private:
 	std::vector<int> _board;
 	std::vector<int> _solution;
@@ -28,5 +29,9 @@ std::vector<bool> getValidValues(int raw, int col, std::vector<int>board, std::a
 std::vector<bool> getRawValues(int raw, std::vector<int>board, std::array<int, 2> dimension);
 std::vector<bool> getColValues(int col, std::vector<int>board, std::array<int, 2> dimension);
 std::vector<bool> getSquareValues(int raw, int col, std::vector<int>board, std::array<int, 2> dimension);
+void addForcedValues(std::vector<int>& board, std::array<int, 2> dimension);
+bool isRemovable(int raw, int col, std::vector<int>board, std::array<int, 2> dimension);
 int nonZeroCount(std::vector<bool> values);
-int getNonZeroValue(std::vector<bool> values, int index);
+int getNonZeroValue(std::vector<bool> values, int index = -1);// -1 for random zero value
+
+std::ostream& printBoard(std::ostream& os, std::vector<int> board, std::array<int, 2> dimension);
